@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign In</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <h1>Sign In</h1>
+    <form th:action="@{/auth/signin}" method="post">
+        <div class="w-50 mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input id="username" class="form-control" type="text" name="username" placeholder="Username" required />
+        </div>
+        <div class="w-50 mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input id="password" type="password" class="form-control" name="password" placeholder="Password" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+        <p th:if="${error}" th:text="${error}">Неправильное имя пользователя или пароль</p>
+    </form>
+    <a th:href="@{/auth/signup}">Don't have an account? Sign Up</a>
+</div>
+</body>
+</html>
