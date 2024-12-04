@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Create a New Task</h1>
-<form th:action="@{/tasks}"  method="post" class="p-3">
+<form th:action="@{'/admin/user-tasks/' + ${user.id} + '/tasks'}"  method="post" class="p-3">
     <div class="form-floating mb-3 w-50">
         <input type="text" id="title" class="form-control" name="title" required />
         <label for="title">Title</label>

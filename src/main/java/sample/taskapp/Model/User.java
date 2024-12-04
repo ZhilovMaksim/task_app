@@ -17,4 +17,9 @@ public class User {
     private String email;
     @Column
     private String password;
+    @Column(name = "role", nullable = false)
+    String role;
+
+    @Column(name = "profile_picture", nullable = false)
+    private String profilePicture;
 }

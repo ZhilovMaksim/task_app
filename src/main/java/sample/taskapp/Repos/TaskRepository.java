@@ -1,5 +1,7 @@
 package sample.taskapp.Repos;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import sample.taskapp.Model.Category;
@@ -9,11 +11,10 @@ import sample.taskapp.Model.User;
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    List<Task> findByUserId(Long userId);
-
-    List<Task> findByUserAndCategoryIdAndStatus(User user, Long categoryId, String status, Sort sort);
-
-    List<Task> findByUserAndStatus(User user, String status, Sort sort);
-    List<Task> findByUserAndCategoryId(User user, Long categoryId, Sort sort);
-    List<Task> findByUser(User user, Sort sort);
+    Page<Task> findByUserAndCategoryIdAndStatus(User user, Long categoryId, String status, Pageable pageable);
+    Page<Task> findByUserAndCategoryId(User user, Long categoryId, Pageable pageable);
+    Page<Task> findByUserAndStatus(User user, String status, Pageable pageable);
+    Page<Task> findByUser(User user, Pageable pageable);
+    Page<Task> findByUserAndTitleContainingIgnoreCase(User user, String title, Pageable pageable);
+    List<Task> findByUserId(Long id);
 }

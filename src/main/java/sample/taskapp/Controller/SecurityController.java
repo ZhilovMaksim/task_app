@@ -65,6 +65,12 @@ public class SecurityController {
         user.setUsername(signupRequest.getUsername());
         user.setEmail(signupRequest.getEmail());
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+
+        if ("admin".equalsIgnoreCase(signupRequest.getUsername())) {
+            user.setRole("ADMIN");
+        } else {
+            user.setRole("USER");
+        }
         userRepository.save(user);
         return "redirect:/auth/signin";
     }
@@ -86,7 +92,12 @@ public class SecurityController {
             jwtCookie.setPath("/");
             response.addCookie(jwtCookie);
 
-            return "redirect:/tasks/";
+            String role = ((UserDetailsImpl) userDetails).getRole();
+            if ("ADMIN".equals(role)) {
+                return "redirect:/admin/dashboard";
+            } else {
+                return "redirect:/tasks/";
+            }
         } catch (BadCredentialsException e) {
             model.addAttribute("error", "Invalid username or password");
             return "signin";

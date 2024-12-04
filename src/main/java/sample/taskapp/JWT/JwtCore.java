@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import sample.taskapp.Model.User;
 import sample.taskapp.Model.UserDetailsImpl;
 
 import java.security.Key;
@@ -55,6 +56,8 @@ public class JwtCore {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
+        UserDetailsImpl userDetailsIml = (UserDetailsImpl) userDetails;
+        extraClaims.put("role", userDetailsIml.getRole());
         return buildToken(extraClaims, userDetails);
     }
 
